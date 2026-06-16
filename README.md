@@ -43,15 +43,15 @@ Scores leads based on:
 ## Architecture
 
 Scraper
-↓
+->
 Enrichment Pipeline
-↓
+->
 Intent Scoring
-↓
+->
 SQLite Database
-↓
+->
 FastAPI
-↓
+->
 Next.js Dashboard
 
 ## V1 Scope
