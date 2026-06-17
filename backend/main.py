@@ -6,6 +6,8 @@ from database import engine, get_db, Base
 from models import Lead
 from pipeline import run_pipeline
 import models
+from fastapi.responses import JSONResponse
+from fastapi import Request
 
 Base.metadata.create_all(bind=engine)
 
@@ -19,8 +21,9 @@ app.add_middleware(
 )
 
 @app.get("/")
-def root():
-    return {"status": "running"}
+@app.head("/")
+async def root(request: Request):
+    return JSONResponse({"status": "running"})
 
 @app.post("/api/pipeline/run")
 def trigger_pipeline(limit: int = 20):
