@@ -1,13 +1,12 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from typing import Optional
 from database import engine, get_db, Base
 from models import Lead
 from pipeline import run_pipeline
 import models
-from fastapi.responses import JSONResponse
-from fastapi import Request
 
 Base.metadata.create_all(bind=engine)
 
@@ -43,7 +42,7 @@ def get_leads(
     if tier:
         query = query.filter(Lead.score_tier == tier)
     if industry:
-        query = query.filter(Lead.industry.ilike(f"%{industry}%"))
+        query = query.filter(Lead.industry.ilike("%" + industry + "%"))
     if min_score is not None:
         query = query.filter(Lead.intent_score >= min_score)
     if sort_by == "intent_score":
@@ -73,4 +72,5 @@ def get_stats(db: Session = Depends(get_db)):
     hot = db.query(Lead).filter(Lead.score_tier == "hot").count()
     warm = db.query(Lead).filter(Lead.score_tier == "warm").count()
     cold = db.query(Lead).filter(Lead.score_tier == "cold").count()
-    return {"total": total, "hot": hot, "warm": warm, "cold": cold}
+    other = total - hot - warm - cold
+    return {"total": total, "hot": hot, "warm": warm, "cold": cold, "other": other}
