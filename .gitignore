@@ -48,3 +48,6 @@ Thumbs.db
 # Coverage
 .coverage
 htmlcov/
+
+# Railway
+backend/railway.toml
