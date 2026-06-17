@@ -64,11 +64,11 @@ Implemented:
 
 ## V2 Ideas
 
-- Real-time monitoring
-- Contact extraction
-- Automated outreach suggestions
-- ICP filtering
-- Multi-source signal aggregation
+-First — LinkedIn job scraping using Apify or PhantomBuster. LinkedIn has 10x more signal than HN and you can filter by company size, location, and role type.
+-Second — Crunchbase API for real-time funding data. When a company raises money it appears on Crunchbase within 24 hours. That's the highest-intent signal possible.
+-Third — automated scheduling. Right now you click Run Pipeline manually. In V2 it runs every 6 hours automatically and sends a Slack alert when a hot lead is found.
+-Fourth — ICP configuration. Let the user define their ideal customer profile — industry, company size, stage — and the scoring weights adjust accordingly.
+-Fifth — contact extraction using Hunter.io. Given a company domain, find the VP of Sales or CEO email automatically. So the sales team doesn't just know who to call — they know exactly who and how."
 
 ## Local Setup
 
